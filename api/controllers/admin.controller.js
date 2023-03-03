@@ -3,11 +3,31 @@ const pool = require('../config/pool')
 
 require("dotenv").config();
 
-// creating new admin
-const createAdmin = async (req, res) => {
+// // post route functions // //
+
+// creating new faculty //
+const createFaculty = async (req, res) => {
+  
+};
+
+// create new course //
+const createCourse= async (req, res) => {
+  
+};
+
+// create new student //
+const createStudent = async (req, res) => {
+  
+};
+
+// create new slot //
+const createSlot = async (req, res) => {
   
 };
 
 module.exports = {
-    createAdmin,
+    createFaculty,
+    createCourse,
+    createStudent,
+    createSlot,
 };

@@ -9,7 +9,11 @@ const router = require("./api/routes");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use("/api", router);
+// app.get('/', (req, res) => {
+//   res.json({success: true})
+// })
+
+app.use("/", router);
 
 app.use(function (err, req, res, next) {
   res.status(err.status || 404).send("route doesn't exist");
