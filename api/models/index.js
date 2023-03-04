@@ -68,6 +68,9 @@ const CourseFaculty = sequelize.define('CourseFaculty', {});
 // Define the RegisteredCourse model
 const RegisteredCourse = sequelize.define('RegisteredCourse', {});
 
+// Define the RegisteredCourse model
+const RegisteredCourseSlots = sequelize.define('RegisteredCourseSlots', {});
+
 // Define the Student model
 const Student = sequelize.define('Student', {
   id: {
@@ -112,6 +115,10 @@ RegisteredCourse.belongsTo(Course);
 Student.hasMany(RegisteredCourse);
 RegisteredCourse.belongsTo(Student);
 
+RegisteredCourse.belongsToMany(Slot, { through: 'RegisteredCourseSlots' });
+Slot.belongsToMany(RegisteredCourse, { through: 'RegisteredCourseSlots' });
+
+
 module.exports = {
   Faculty,
   Timings,
@@ -120,6 +127,7 @@ module.exports = {
   Course,
   CourseFaculty,
   RegisteredCourse,
+  RegisteredCourseSlots,
   Student,
   Admin,
   sequelize,
