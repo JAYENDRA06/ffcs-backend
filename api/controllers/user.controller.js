@@ -1,5 +1,20 @@
+const {
+  Faculty,
+  Timings,
+  Slot,
+  AllowedSlots,
+  Course,
+  CourseFaculty,
+  RegisteredCourse,
+  Student,
+  Admin,
+} = require("../models/index");
+
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const pool = require('../config/pool')
+const pool = require('../config/pool');
+const secret = process.env.USER_SECRET;
+
 
 // // get route functions // //
 
@@ -39,8 +54,27 @@ const getTimetable = async (req, res) => {
 
 // // post route functions // //
 
+
 const registerCourse = async (req, res) => {
 
+}
+
+const loginStudent = async (req, res) => {
+  const { id, password } = req.body;
+  const student = await Student.findOne({ id });
+
+  if (!student) {
+    res.status(404).json({ success: false, err: "Student not found" });
+  }
+
+  const passwordMatches = await bcrypt.compare(password, student.password);
+
+  if (passwordMatches) {
+    const accessToken = jwt.sign(id, secret);
+    res.status(200).json({ success: true, id, accessToken });
+  } else {
+    res.status(401).json({ success: false, err: "Password invalid" });
+  }
 }
 
 module.exports = {
@@ -48,4 +82,5 @@ module.exports = {
   getCourse,
   getTimetable,
   registerCourse,
+  loginStudent,
 };

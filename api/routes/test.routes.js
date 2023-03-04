@@ -1,3 +1,5 @@
+const router = require("express").Router();
+
 const {
   Faculty,
   Timings,
@@ -7,19 +9,34 @@ const {
   CourseFaculty,
   RegisteredCourse,
   Student,
-  Admin,
-} = require("../models/index"); // Import the models
+  sequelize,
+} = require("../models/index"); // Import the models from the file where they were defined
 
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
-const jwt = require('jsonwebtoken');
+// Create the tables in the database
+(async () => {
+  await sequelize.sync();
+})();
 
-require("dotenv").config();
+router.post("/createSlot", async (req, res) => {
+  const { id, timings } = req.body;
+  try {
+    const slot1 = await Slot.create({ id });
+    timings.forEach(async (timing) => {
+      const timings1 = await Timings.create({
+        day: timing.day,
+        start: new Date(timing.start),
+        end: new Date(timing.end),
+      });
+      await slot1.addTiming(timings1);
+    });
+  } catch {
+    res.status(404).json({ success: false });
+  }
 
-// // post route functions // //
+  res.json({ success: true, data: { id, timings } });
+});
 
-// creating new faculty //
-const createFaculty = async (req, res) => {
+router.post("/createFaculty", async (req, res) => {
   const { id, name } = req.body;
   try {
     const exists = await Faculty.findOne({ where: { id } });
@@ -29,10 +46,9 @@ const createFaculty = async (req, res) => {
   } catch {
     res.status(404).json({ success: false });
   }
-};
+});
 
-// create new course //
-const createCourse = async (req, res) => {
+router.post("/createCourse", async (req, res) => {
   try {
     const { id, name, slot_ids, faculty_ids, course_type } = req.body;
 
@@ -93,18 +109,13 @@ const createCourse = async (req, res) => {
     console.error(error);
     res.status(404).json({ success: false, error: "Failed to create course" });
   }
-};
+});
 
-// create new student //
-const createStudent = async (req, res) => {
+router.post("/createStudent", async (req, res) => {
   try {
-    const { id, name, password } = req.body;
+    const { id, name } = req.body;
 
-    const hash = await bcrypt.hash(password, saltRounds);
-
-    console.log(hash);
-
-    const student = await Student.create({ id, name, password: hash });
+    const student = await Student.create({ id, name });
 
     res.status(201).json({
       success: true,
@@ -120,75 +131,6 @@ const createStudent = async (req, res) => {
       error: "Internal server error",
     });
   }
-};
+});
 
-// create new slot //
-const createSlot = async (req, res) => {
-  const { id, timings } = req.body;
-  try {
-    const slot1 = await Slot.create({ id });
-    timings.forEach(async (timing) => {
-      const timings1 = await Timings.create({
-        day: timing.day,
-        start: new Date(timing.start),
-        end: new Date(timing.end),
-      });
-      await slot1.addTiming(timings1);
-    });
-  } catch {
-    res.status(404).json({ success: false });
-  }
-
-  res.json({ success: true, data: { id, timings } });
-};
-
-// create new admin for testing only //
-const createAdmin = async (req, res) => {
-  try {
-    const { id, password } = req.body;
-    const hash = await bcrypt.hash(password, saltRounds);
-
-    const admin = await Admin.create({ id, password: hash });
-
-    res.status(201).json({
-      success: true,
-      data: {
-        id: admin.id,
-        name: admin.name,
-      },
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      success: false,
-      error: "Internal server error",
-    });
-  }
-};
-
-const loginAdmin = async (req, res) => {
-  const { id, password } = req.body;
-  const admin = await Admin.findOne({ id });
-
-  if (!admin) {
-    res.status(404).json({ success: false, err: "Admin not found" });
-  }
-
-  const passwordMatches = await bcrypt.compare(password, admin.password);
-
-  if (passwordMatches) {
-    const accessToken = jwt.sign(id, process.env.ADMIN_SECRET);
-    res.status(200).json({ success: true, id, accessToken });
-  } else {
-    res.status(401).json({ success: false, err: "Password invalid" });
-  }
-};
-
-module.exports = {
-  createFaculty,
-  createCourse,
-  createStudent,
-  createSlot,
-  createAdmin,
-  loginAdmin,
-};
+module.exports = router;
