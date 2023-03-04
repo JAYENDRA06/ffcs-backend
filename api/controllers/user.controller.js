@@ -67,7 +67,96 @@ const getCourse = async (req, res) => {
 
 // Gets the timetable for the currently authenticated student. Does not work without authentication //
 
-const getTimetable = async (req, res) => {};
+const getTimetable = async (req, res) => {
+  const studentId = req.userID;
+  try {
+    // Find the student in the database
+    const student = await Student.findByPk(studentId);
+  
+    // Get the registered courses for the student
+    const registeredCourses = await RegisteredCourse.findAll({
+      where: { StudentId: studentId },
+      include: [
+        {
+          model: Course,
+          include: [
+            {
+              model: Faculty,
+              attributes: ['id', 'name'],
+            },
+            {
+              model: Slot,
+              attributes: ['id'],
+              include: [
+                {
+                  model: Timings,
+                  attributes: ['day', 'start', 'end'],
+                },
+              ],
+            },
+          ],
+          attributes: ['id', 'name', 'course_type'],
+        },
+        {
+          model: Slot,
+          attributes: ['id'],
+          include: [
+            {
+              model: Timings,
+              attributes: ['day', 'start', 'end'],
+            },
+          ],
+        },
+      ],
+    });
+    
+    // Map the registered courses to the desired format
+    const timetable = {
+      id: student.id,
+      name: student.name,
+      registered_courses: registeredCourses.map((registeredCourse) => {
+        const course = registeredCourse.Course;
+        const faculties = course.Faculties.map((faculty) => ({
+          id: faculty.id,
+          name: faculty.name,
+        }));
+        const allowedSlots = course.Slots.map((slot) => ({
+          id: slot.id,
+          timings: slot.Timings.map((timing) => ({
+            day: timing.day,
+            start: timing.start.toISOString(),
+            end: timing.end.toISOString(),
+          })),
+        }));
+        const slots = registeredCourse.Slots.map((slot) => ({
+          id: slot.id,
+          timings: slot.Timings.map((timing) => ({
+            day: timing.day,
+            start: timing.start.toISOString(),
+            end: timing.end.toISOString(),
+          })),
+        }));
+        return {
+          course: {
+            id: course.id,
+            name: course.name,
+            faculties: faculties,
+            course_type: course.course_type,
+            allowed_slots: allowedSlots,
+          },
+          slots: slots,
+        };
+      }),
+    };
+    
+    // Return the timetable as the response
+    res.json({ success: true, data: timetable });
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
 
 // // post route functions // //
 
