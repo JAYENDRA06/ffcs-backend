@@ -101,14 +101,20 @@ Here are a few steps you need to follow before executing the project files.
     USER_SECRET=a_hash_value
     ADMIN_SECRET=another_hash_value
    ```
+6. Open command prompt in root folder
+  ```sh
+    npm start
+  ```
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-All the API routes with their usages are given below
+All the API routes with their usages are given below. Preferebly use POSTMAN for accessing endpoints.
 
 ### ADMIN ROUTES
+
+
 
 **CREATE-ADMIN**
 
@@ -116,7 +122,7 @@ request route
 ```sh
    http://localhost:3000/admin/createAdmin
 ```
-request body
+example request body
 ```json
   {
     "id": "A002",
@@ -125,6 +131,20 @@ request body
 ```
 ---
 
+**ADMIN-LOGIN**
+
+request route
+```sh
+   http://localhost:3000/admin/login
+```
+example request body
+```json
+  {
+    "id": "A002",
+    "password": "admin1"
+  }
+```
+---
 
 
 _For more examples, please refer to the [Documentation](https://www.postman.com/blue-shuttle-421600/workspace/ffcs-api/api/e42caaef-2742-44ac-8625-2c986dd2bb5a/documentation/16618256-f9f68df6-3e31-4042-9dab-ce6aacd77177?branch=&version=cd6090c5-9d03-4652-8d59-a11efa2627e3)_
