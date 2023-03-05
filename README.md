@@ -56,25 +56,14 @@
 
 This is a FFCS API developed using **Nodejs and Express** as a part of **dyte vit hiring 2023**. This API provides endpoints which can be used in an application implementing FFCS. The endpoints are protected with **jsonwebtoken authorization**. The login routes are protected with **bcrypt authentication.**
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+![C++](https://img.shields.io/badge/-Nodejs-333333?style=for-the-badge&logo=javascript)
+![Express](https://img.shields.io/badge/-express.js-333333?style=for-the-badge&logo=express)
+![Postgresql](https://img.shields.io/badge/-postgresql-333333?style=for-the-badge&logo=postgresql)
 
 
 <!-- GETTING STARTED -->
