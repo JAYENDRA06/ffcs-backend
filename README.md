@@ -69,37 +69,38 @@ This is a FFCS API developed using **Nodejs and Express** as a part of **dyte vi
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Here are a few steps you need to follow before executing the project files.
 
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* Download and install nodejs from <a href='https://nodejs.org/en/'>here</a>
+* Donwload and install postgresql from <a href='https://www.postgresql.org/download/'>here</a>
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/dyte-submissions/vit-hiring-2023-phase-1-JAYENDRA06.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+3. Create an .env file in root folder
+
+4. Create a database in postgres named ffcs by entering the below command in psql terminal
+  ```sql
+    CREATE DATABASE ffcs;
+  ```
+
+5. Define the environment variables in `.env` as follows
    ```js
-   const API_KEY = 'ENTER YOUR API';
+   PORT=3000
+    DB_PASS=your_db_password
+    DB_NAME=ffcs
+    DB_USER=your_db_username
+    USER_SECRET=a_hash_value
+    ADMIN_SECRET=another_hash_value
    ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- USAGE EXAMPLES -->
