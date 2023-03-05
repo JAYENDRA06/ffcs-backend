@@ -88,13 +88,13 @@ Here are a few steps you need to follow before executing the project files.
 3. Create an .env file in root folder
 
 4. Create a database in postgres named ffcs by entering the below command in psql terminal
-  ```sql
+   ```sql
     CREATE DATABASE ffcs;
-  ```
+   ```
 
 5. Define the environment variables in `.env` as follows
    ```js
-   PORT=3000
+    PORT=3000
     DB_PASS=your_db_password
     DB_NAME=ffcs
     DB_USER=your_db_username
