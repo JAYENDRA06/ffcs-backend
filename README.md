@@ -118,11 +118,11 @@ All the API routes with their usages are given below. Preferebly use POSTMAN for
 
 **CREATE-ADMIN**
 
-request route
+Request route
 ```sh
 http://localhost:3000/admin/createAdmin
 ```
-example request body
+Example request body
 ```json
 {
   "id": "A002",
@@ -133,18 +133,18 @@ example request body
 
 **ADMIN-LOGIN**
 
-request route
+Request route
 ```sh
 http://localhost:3000/admin/login
 ```
-example request body
+Example request body
 ```json
 {
   "id": "A002",
   "password": "admin1"
 }
 ```
-the response generated will be something like
+The response generated will be something like
 ```json
 {
   "success": true
@@ -152,25 +152,25 @@ the response generated will be something like
   "accessToken": "eyJhbGciOiJIUzI1NiJ9.QTAwMg.UWT3kmg_O0ofX8TIgKP1-HrpoWUbdzmv2b20SrZ5R48"
 }
 ```
-note: this access token will be used by jwt for authorization so note it
+Note: this access token will be used by jwt for authorization so note it
 
 ---
 
 **CREATE-FACULTY**
 
-request route
+Request route
 ```sh
 http://localhost:3000/admin/faculty
 ```
-example request body
+Example request body
 ```json
 {
   "id": "C002",
   "name": "faculty2"
 }
 ```
-authorization header
-```json
+Authorization header
+```sh
 Bearer admin_token_recieved_earlier
 ```
 
