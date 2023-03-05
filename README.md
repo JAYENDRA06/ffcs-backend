@@ -102,9 +102,9 @@ Here are a few steps you need to follow before executing the project files.
     ADMIN_SECRET=another_hash_value
    ```
 6. Open command prompt in root folder
-  ```sh
-    npm start
-  ```
+    ```sh
+      npm start
+    ```
 
 
 <!-- USAGE EXAMPLES -->
@@ -120,14 +120,14 @@ All the API routes with their usages are given below. Preferebly use POSTMAN for
 
 request route
 ```sh
-   http://localhost:3000/admin/createAdmin
+http://localhost:3000/admin/createAdmin
 ```
 example request body
 ```json
-  {
-    "id": "A002",
-    "password": "admin1"
-  }
+{
+  "id": "A002",
+  "password": "admin1"
+}
 ```
 ---
 
@@ -135,15 +135,25 @@ example request body
 
 request route
 ```sh
-   http://localhost:3000/admin/login
+http://localhost:3000/admin/login
 ```
 example request body
 ```json
-  {
-    "id": "A002",
-    "password": "admin1"
-  }
+{
+  "id": "A002",
+  "password": "admin1"
+}
 ```
+the response generated will be something like
+```json
+{
+  "success": true
+  "id": "A002",
+  "accessToken": "eyJhbGciOiJIUzI1NiJ9.QTAwMg.UWT3kmg_O0ofX8TIgKP1-HrpoWUbdzmv2b20SrZ5R48"
+}
+```
+note: this access key will be used for authorization so note it
+
 ---
 
 
