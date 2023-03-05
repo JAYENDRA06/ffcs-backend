@@ -171,7 +171,38 @@ Example request body
 ```
 Authorization header
 ```sh
-Bearer admin_token_recieved_earlier
+Bearer access_token_recieved_earlier
+```
+
+---
+
+**CREATE-SLOT**
+
+Request route
+```sh
+http://localhost:3000/admin/slot
+```
+Example request body
+```json
+{
+  "id": "A2",
+  "timings": [
+    {
+      "day": "MON",
+      "start": "2019-08-24T14:15:21Z",
+      "end": "2019-08-24T14:15:21Z"
+    },
+    {
+      "day": "TUE",
+      "start": "2019-08-24T14:15:21Z",
+      "end": "2019-08-24T14:15:21Z"
+    }
+  ]
+}
+```
+Authorization header
+```sh
+Bearer access_token_recieved_earlier
 ```
 
 ---
