@@ -152,9 +152,31 @@ the response generated will be something like
   "accessToken": "eyJhbGciOiJIUzI1NiJ9.QTAwMg.UWT3kmg_O0ofX8TIgKP1-HrpoWUbdzmv2b20SrZ5R48"
 }
 ```
-note: this access key will be used for authorization so note it
+note: this access token will be used by jwt for authorization so note it
 
 ---
+
+**CREATE-FACULTY**
+
+request route
+```sh
+http://localhost:3000/admin/faculty
+```
+example request body
+```json
+{
+  "id": "C002",
+  "name": "faculty2"
+}
+```
+authorization header
+```json
+Bearer admin_token_recieved_earlier
+```
+
+---
+
+
 
 
 _For more examples, please refer to the [Documentation](https://www.postman.com/blue-shuttle-421600/workspace/ffcs-api/api/e42caaef-2742-44ac-8625-2c986dd2bb5a/documentation/16618256-f9f68df6-3e31-4042-9dab-ce6aacd77177?branch=&version=cd6090c5-9d03-4652-8d59-a11efa2627e3)_
