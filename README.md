@@ -103,6 +103,8 @@ Here are a few steps you need to follow before executing the project files.
     ```sh
       node index.js
     ```
+***after executing this command, all tables will be created in your database as below***
+![image](https://user-images.githubusercontent.com/77437382/222976360-8318a7e1-2ce0-4a93-b333-b25b4f475358.png)
 
 
 <!-- USAGE EXAMPLES -->
