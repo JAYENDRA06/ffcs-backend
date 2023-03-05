@@ -108,9 +108,21 @@ Here are a few steps you need to follow before executing the project files.
 
 All the API routes with their usages are given below
 
-# ADMIN ROUTES
+### ADMIN ROUTES
 
 **CREATE-ADMIN**
+
+request route
+```http
+   http://localhost:3000/admin/createAdmin
+```
+request body
+```json
+  {
+    "id": "A002",
+    "password": "admin1"
+  }
+```
 
 
 _For more examples, please refer to the [Documentation](https://www.postman.com/blue-shuttle-421600/workspace/ffcs-api/api/e42caaef-2742-44ac-8625-2c986dd2bb5a/documentation/16618256-f9f68df6-3e31-4042-9dab-ce6aacd77177?branch=&version=cd6090c5-9d03-4652-8d59-a11efa2627e3)_
