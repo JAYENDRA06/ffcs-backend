@@ -54,7 +54,7 @@ This is a FFCS API developed using **Nodejs and Express** as a part of **dyte vi
 
 ### Database Schema
 
-<img width="1888" alt="FFCS ER DIAGRAM (1)" src="https://user-images.githubusercontent.com/77437382/222975345-cbdb257e-2b75-4ad3-af7e-fc0a274c0a9f.png">
+<img width="1888" alt="FFCS ER DIAGRAM (2)" src="https://user-images.githubusercontent.com/77437382/222975522-bb65611f-51cd-47ca-a154-f956faa5a380.png">
 
 
 ### Built With
