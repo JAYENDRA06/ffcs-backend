@@ -17,8 +17,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">FFCS backend</h3>
-  [![Next][Next.js]][Next-url]
+  <h2 align="center">FFCS backend</h2>
+  <h3><a href="https://www.postman.com/blue-shuttle-421600/workspace/ffcs-api/api/e42caaef-2742-44ac-8625-2c986dd2bb5a/documentation/16618256-f9f68df6-3e31-4042-9dab-ce6aacd77177?branch=&version=cd6090c5-9d03-4652-8d59-a11efa2627e3">POSTMAN API documentation </a></h3>
 </div>
 
 
