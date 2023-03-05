@@ -52,7 +52,9 @@
 
 This is a FFCS API developed using **Nodejs and Express** as a part of **dyte vit hiring 2023**. This API provides endpoints which can be used in an application implementing FFCS. The endpoints are protected with **jsonwebtoken authorization**. The login routes are protected with **bcrypt authentication.**
 
+### Database Schema
 
+<img width="1888" alt="FFCS ER DIAGRAM (1)" src="https://user-images.githubusercontent.com/77437382/222975345-cbdb257e-2b75-4ad3-af7e-fc0a274c0a9f.png">
 
 
 ### Built With
