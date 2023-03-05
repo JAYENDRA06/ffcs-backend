@@ -106,9 +106,14 @@ Here are a few steps you need to follow before executing the project files.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+All the API routes with their usages are given below
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+# ADMIN ROUTES
+
+**CREATE-ADMIN**
+
+
+_For more examples, please refer to the [Documentation](https://www.postman.com/blue-shuttle-421600/workspace/ffcs-api/api/e42caaef-2742-44ac-8625-2c986dd2bb5a/documentation/16618256-f9f68df6-3e31-4042-9dab-ce6aacd77177?branch=&version=cd6090c5-9d03-4652-8d59-a11efa2627e3)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
