@@ -12,7 +12,7 @@ const {
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const pool = require("../config/pool");
+const { Op } = require("sequelize");
 const secret = process.env.USER_SECRET;
 
 // // get route functions // //
@@ -24,7 +24,7 @@ const getFaculty = async (req, res) => {
   const faculty = await Faculty.findOne({ id });
 
   if (!faculty) {
-    res.status(404).json({ success: false, err: "Student not found" });
+    res.status(404).json({ success: false, err: "Faulcty not found" });
   }
 
   res
@@ -72,7 +72,7 @@ const getTimetable = async (req, res) => {
   try {
     // Find the student in the database
     const student = await Student.findByPk(studentId);
-  
+
     // Get the registered courses for the student
     const registeredCourses = await RegisteredCourse.findAll({
       where: { StudentId: studentId },
@@ -82,34 +82,34 @@ const getTimetable = async (req, res) => {
           include: [
             {
               model: Faculty,
-              attributes: ['id', 'name'],
+              attributes: ["id", "name"],
             },
             {
               model: Slot,
-              attributes: ['id'],
+              attributes: ["id"],
               include: [
                 {
                   model: Timings,
-                  attributes: ['day', 'start', 'end'],
+                  attributes: ["day", "start", "end"],
                 },
               ],
             },
           ],
-          attributes: ['id', 'name', 'course_type'],
+          attributes: ["id", "name", "course_type"],
         },
         {
           model: Slot,
-          attributes: ['id'],
+          attributes: ["id"],
           include: [
             {
               model: Timings,
-              attributes: ['day', 'start', 'end'],
+              attributes: ["day", "start", "end"],
             },
           ],
         },
       ],
     });
-    
+
     // Map the registered courses to the desired format
     const timetable = {
       id: student.id,
@@ -148,13 +148,12 @@ const getTimetable = async (req, res) => {
         };
       }),
     };
-    
+
     // Return the timetable as the response
     res.json({ success: true, data: timetable });
-    
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
 
@@ -186,11 +185,20 @@ const registerCourse = async (req, res) => {
       ],
     });
 
+    // Check if course was found
+    if (!course) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Course not found" });
+    }
+
     // Find the faculties associated with the course
-    const faculties = course.Faculties.map((faculty) => ({
-      id: faculty.id,
-      name: faculty.name,
-    }));
+    const faculties = course.Faculties
+      ? course.Faculties.map((faculty) => ({
+          id: faculty.id,
+          name: faculty.name,
+        }))
+      : [];
 
     // Find the slots associated with the course
     const slots = course.Slots.map((slot) => ({
@@ -201,6 +209,48 @@ const registerCourse = async (req, res) => {
         end: timing.end,
       })),
     }));
+
+    // Check if the selected slots are available for the student and faculty
+    const conflictingSlots = await Slot.findAll({
+      where: {
+        id: slot_ids,
+        "$Timings.day$": {
+          [Op.in]: slots
+            .map((slot) => slot.timings.map((timing) => timing.day))
+            .flat(),
+        },
+        "$RegisteredCourses.StudentId$": userID,
+        "$RegisteredCourses.FacultyId$": faculty_id,
+      },
+      include: [
+        {
+          model: Timings,
+        },
+        {
+          model: RegisteredCourse,
+          include: [
+            {
+              model: Faculty,
+              attributes: [],
+              where: {
+                id: faculty_id,
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    if (conflictingSlots.length > 0) {
+      const errorSlot = conflictingSlots[0];
+      const errorTimings = errorSlot.Timings.map(
+        (timing) => `${timing.day} ${timing.start}-${timing.end}`
+      ).join(", ");
+      return res.status(400).json({
+        success: false,
+        message: `You already have a course in slot ${errorSlot.id} (${errorTimings})`,
+      });
+    }
 
     // Create a new registered course
     const registeredCourse = await RegisteredCourse.create({
@@ -216,7 +266,7 @@ const registerCourse = async (req, res) => {
 
     // Get the registered courses associated with the student
     const registeredCourses = await RegisteredCourse.findAll({
-      where: { StudentId: userID }, 
+      where: { StudentId: userID },
       include: [
         {
           model: Course,
@@ -251,12 +301,12 @@ const registerCourse = async (req, res) => {
       ],
     });
 
-    const studentName = await Student.findOne({ userID });
+    const studentName = await Student.findOne({ where: { id: userID } });
 
     // Map the registered courses to the desired format
     const data = {
-      id: userID, 
-      name: studentName.name, 
+      id: userID,
+      name: studentName.name,
       registered_courses: registeredCourses.map((registeredCourse) => {
         const course = registeredCourse.Course;
         return {
@@ -284,7 +334,7 @@ const registerCourse = async (req, res) => {
 
     res.status(200).json({ success: true, data });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({ success: false, message: "Server error" });
   }
 };

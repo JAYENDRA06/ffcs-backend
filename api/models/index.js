@@ -1,11 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-require('dotenv').config();
-
-// Create a new instance of Sequelize
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
-  dialect: 'postgres',
-  host: 'localhost',
-});
+const sequelize = require('../config/pool');
 
 // Define the Faculty model
 const Faculty = sequelize.define('Faculty', {
@@ -114,6 +108,9 @@ RegisteredCourse.belongsTo(Course);
 
 Student.hasMany(RegisteredCourse);
 RegisteredCourse.belongsTo(Student);
+
+Faculty.hasMany(RegisteredCourse);
+RegisteredCourse.belongsTo(Faculty);
 
 RegisteredCourse.belongsToMany(Slot, { through: 'RegisteredCourseSlots' });
 Slot.belongsToMany(RegisteredCourse, { through: 'RegisteredCourseSlots' });

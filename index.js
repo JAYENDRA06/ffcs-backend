@@ -20,8 +20,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 404).send("route doesn't exist");
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const server = http.createServer(app);
 server.listen(PORT, function () {
-  console.log(`Server is up on ${PORT}`);
+  // console.log(`Server is up on ${PORT}`);
 });

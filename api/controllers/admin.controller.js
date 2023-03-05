@@ -12,7 +12,7 @@ const {
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
@@ -102,7 +102,7 @@ const createStudent = async (req, res) => {
 
     const hash = await bcrypt.hash(password, saltRounds);
 
-    console.log(hash);
+    // console.log(hash);
 
     const student = await Student.create({ id, name, password: hash });
 
@@ -144,8 +144,14 @@ const createSlot = async (req, res) => {
 
 // create new admin for testing only //
 const createAdmin = async (req, res) => {
+  const { id, password } = req.body;
+
+  const exists = await Admin.findOne({ where: { id } });
+  if (exists) res.status(409).json({ success: false, err: "Already exists" });
+
+  if(password.length === 0) res.status(400).json({ success: false, err: "Password required" });
+
   try {
-    const { id, password } = req.body;
     const hash = await bcrypt.hash(password, saltRounds);
 
     const admin = await Admin.create({ id, password: hash });

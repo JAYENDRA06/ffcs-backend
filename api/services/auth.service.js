@@ -8,14 +8,14 @@ const adminSecret = process.env.ADMIN_SECRET;
 
 const authenticateStudentToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1]; // Get token from header
-  console.log(token);
+  // console.log(token);
   if (!token) {
     return res.status(401).json({ message: "Authorization failed" });
   }
 
   try {
     const decodedToken = jwt.verify(token, userSecret);
-    console.log(decodedToken);
+    // console.log(decodedToken);
 
     const student = await Student.findOne({
       where: { id: decodedToken },
@@ -34,14 +34,14 @@ const authenticateStudentToken = async (req, res, next) => {
 
 const authenticateAdminToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1]; // Get token from header
-  console.log(token);
+  // console.log(token);
   if (!token) {
     return res.status(401).json({ message: "Authorization failed" });
   }
 
   try {
     const decodedToken = jwt.verify(token, adminSecret);
-    console.log(decodedToken);
+    // console.log(decodedToken);
 
     const admin = await Admin.findOne({
       where: { id: decodedToken },
