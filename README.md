@@ -61,8 +61,8 @@ This is a FFCS API developed using **Nodejs and Express** as a part of **dyte vi
 
 ### Built With
 
-![C++](https://img.shields.io/badge/-Nodejs-333333?style=for-the-badge&logo=javascript)
-![Express](https://img.shields.io/badge/-express.js-333333?style=for-the-badge&logo=express)
+![Nodejs](https://img.shields.io/badge/-Nodejs-333333?style=for-the-badge&logo=javascript)
+![Express.js](https://img.shields.io/badge/-express.js-333333?style=for-the-badge&logo=express)
 ![Postgresql](https://img.shields.io/badge/-postgresql-333333?style=for-the-badge&logo=postgresql)
 
 
@@ -103,7 +103,7 @@ Here are a few steps you need to follow before executing the project files.
    ```
 6. Open command prompt in root folder
     ```sh
-      npm start
+      node index.js
     ```
 
 
@@ -120,7 +120,7 @@ All the API routes with their usages are given below. Preferebly use POSTMAN for
 
 Request route
 ```sh
-http://localhost:3000/admin/createAdmin
+POST: http://localhost:3000/admin/createAdmin
 ```
 Example request body
 ```json
@@ -135,7 +135,7 @@ Example request body
 
 Request route
 ```sh
-http://localhost:3000/admin/login
+POST: http://localhost:3000/admin/login
 ```
 Example request body
 ```json
@@ -160,7 +160,7 @@ Note: this access token will be used by jwt for authorization so note it
 
 Request route
 ```sh
-http://localhost:3000/admin/faculty
+POST: http://localhost:3000/admin/faculty
 ```
 Example request body
 ```json
@@ -180,7 +180,7 @@ Bearer access_token_recieved_earlier
 
 Request route
 ```sh
-http://localhost:3000/admin/slot
+POST: http://localhost:3000/admin/slot
 ```
 Example request body
 ```json
@@ -212,7 +212,7 @@ Bearer access_token_recieved_earlier
 
 Request route
 ```sh
-http://localhost:3000/admin/course
+POST: http://localhost:3000/admin/course
 ```
 Example request body
 ```json
@@ -242,7 +242,7 @@ Bearer access_token_recieved_earlier
 
 Request route
 ```sh
-http://localhost:3000/admin/student
+POST: http://localhost:3000/admin/student
 ```
 Example request body
 ```json
@@ -259,10 +259,103 @@ Bearer access_token_recieved_earlier
 
 ---
 
+### USER ROUTES
 
-_For more examples, please refer to the [Documentation](https://www.postman.com/blue-shuttle-421600/workspace/ffcs-api/api/e42caaef-2742-44ac-8625-2c986dd2bb5a/documentation/16618256-f9f68df6-3e31-4042-9dab-ce6aacd77177?branch=&version=cd6090c5-9d03-4652-8d59-a11efa2627e3)_
+**USER-LOGIN**
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Request route
+```sh
+POST: http://localhost:3000/user/login
+```
+Example request body
+```json
+{
+    "id": "20BCE0536",
+    "password": "student1"
+}
+```
+
+The response generated will be something like
+```json
+{
+    "success": true,
+    "id": "20BCE0536",
+    "accessToken": "eyJhbGciOiJIUzI1NiJ9.MjBCQ0UwNTM2.uqmFcdz2E_pfKs3oWMojXP94p4yUoU4nZifaql8eZoA"
+}
+```
+Note: this access token will be used by jwt for authorization so note it
+
+
+---
+
+**GET-FACULTY**
+
+Request route
+```sh
+GET: http://localhost:3000/faculty/{faculty_id}
+```
+
+Authorization header
+```sh
+Bearer access_token_recieved_earlier
+```
+
+---
+
+**GET-COURSE**
+
+Request route
+```sh
+GET: http://localhost:3000/course/{course_id}
+```
+
+Authorization header
+```sh
+Bearer access_token_recieved_earlier
+```
+
+---
+
+**REGISTER-COURSE**
+
+Request route
+```sh
+POST: http://localhost:3000/register
+```
+Example request body
+```json
+{
+  "course_id": "CSE3001",
+  "faculty_id": "C001",
+  "slot_ids": [
+    "A1"
+  ]
+}
+```
+
+Authorization header
+```sh
+Bearer access_token_recieved_earlier
+```
+
+---
+
+**GET-TIMETABLE**
+
+Request route
+```sh
+GET: http://localhost:3000/timetable
+```
+
+Authorization header
+```sh
+Bearer access_token_recieved_earlier
+```
+
+---
+
+
+_For more information about requests and responses generated, please refer to the [Documentation](https://www.postman.com/blue-shuttle-421600/workspace/ffcs-api/api/e42caaef-2742-44ac-8625-2c986dd2bb5a/documentation/16618256-f9f68df6-3e31-4042-9dab-ce6aacd77177?branch=&version=cd6090c5-9d03-4652-8d59-a11efa2627e3)_
 
 
 <!-- CONTACT -->
@@ -270,38 +363,4 @@ _For more examples, please refer to the [Documentation](https://www.postman.com/
 
 Jayendra Awasthi - jayendraawasthi06@gmail.com
 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+<a href="https://github.com/JAYENDRA06">![Gihutb](https://img.shields.io/badge/-JAYENDRA-333333?style=for-the-badge&logo=github)</a>
